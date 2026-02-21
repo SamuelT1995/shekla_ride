@@ -1,0 +1,115 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  USER
+  OWNER
+  ADMIN
+}
+
+enum UserStatus {
+  PENDING
+  VERIFIED
+  SUSPENDED
+}
+
+enum CarStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  UNAVAILABLE
+}
+
+enum BookingStatus {
+  PENDING
+  CONFIRMED
+  CANCELLED
+  PICKED_UP
+  COMPLETED
+}
+
+model User {
+  id                String     @id @default(uuid())
+  phoneNumber       String     @unique
+  email             String     @unique
+  password          String
+  fullName          String
+  role              Role       @default(USER)
+  status            UserStatus @default(PENDING)
+  avatarUrl         String?
+  licenseFront      String?
+  licenseBack       String?
+  isVerified        Boolean    @default(false)
+  createdAt         DateTime   @default(now())
+  updatedAt         DateTime   @updatedAt
+
+  cars              Car[]      @relation("OwnerCars")
+  bookings          Booking[]  @relation("RenterBookings")
+  reviews           Review[]
+}
+
+model Car {
+  id                String       @id @default(uuid())
+  ownerId           String
+  owner             User         @relation("OwnerCars", fields: [ownerId], references: [id])
+  make              String
+  model             String
+  year              Int
+  type              String       // Sedan, SUV, etc.
+  transmission      String       // Manual, Automatic
+  fuelType          String
+  seats             Int
+  pricePerDay       Float
+  location          String
+  description       String       @db.Text
+  images            String[]     // Array of image URLs
+  registrationDoc   String?
+  status            CarStatus    @default(PENDING)
+  createdAt         DateTime     @default(now())
+  updatedAt         DateTime     @updatedAt
+
+  bookings          Booking[]
+  reviews           Review[]
+}
+
+model Booking {
+  id                String        @id @default(uuid())
+  renterId          String
+  renter            User          @relation("RenterBookings", fields: [renterId], references: [id])
+  carId             String
+  car               Car           @relation(fields: [carId], references: [id])
+  startDate         DateTime
+  endDate           DateTime
+  totalPrice        Float
+  securityDeposit   Float
+  commissionAmount  Float
+  paymentStatus     String        @default("PENDING") // PENDING, PAID, REFUNDED
+  status            BookingStatus @default(PENDING)
+  pickupVerified    Boolean       @default(false)
+  createdAt         DateTime      @default(now())
+  updatedAt         DateTime      @updatedAt
+
+  review            Review?
+}
+
+model Review {
+  id                String   @id @default(uuid())
+  bookingId         String   @unique
+  booking           Booking  @relation(fields: [bookingId], references: [id])
+  userId            String
+  user              User     @relation(fields: [userId], references: [id])
+  carId             String
+  car               Car      @relation(fields: [carId], references: [id])
+  rating            Int
+  comment           String?  @db.Text
+  createdAt         DateTime @default(now())
+}
