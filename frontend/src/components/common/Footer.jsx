@@ -12,16 +12,16 @@ const Footer = () => {
         {
             title: 'Experience',
             links: [
-                { label: 'Browse Collection', path: '/cars' },
+                { label: 'Browse Vehicles', path: '/cars' },
                 { label: 'How it Works', path: '/' },
-                { label: 'Concierge Support', path: '/help' },
-                { label: 'The Ethos', path: '/about' }
+                { label: 'Support', path: '/help' },
+                { label: 'Our Philosophy', path: '/about' }
             ]
         },
         {
-            title: 'Registry',
+            title: 'Dashboard',
             links: [
-                { label: 'List your Asset', path: '/cars/add' },
+                { label: 'Add your Vehicle', path: '/cars/add' },
                 { label: 'Host Guidelines', path: '/host-rules' },
                 { label: 'Insurance & Safety', path: '/safety' }
             ]
@@ -50,7 +50,7 @@ const Footer = () => {
                         </Link>
 
                         <p className="text-lg text-slate-400 font-medium leading-relaxed max-w-sm">
-                            Curating extraordinary journeys through the heart of Ethiopia. A testament to peer-to-peer excellence.
+                            Ethiopia's premier peer-to-peer car sharing marketplace. Professional service for an extraordinary journey.
                         </p>
 
                         <div className="flex gap-6">

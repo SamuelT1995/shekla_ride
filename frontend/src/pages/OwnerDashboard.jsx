@@ -48,7 +48,7 @@ const OwnerDashboard = () => {
     if (loading) return <div className="min-h-screen flex items-center justify-center font-black text-primary">Loading your operations...</div>;
 
     const stats = [
-        { label: 'Total Fleet', val: cars.length, icon: <Car className="text-blue-600" />, bg: 'bg-blue-50' },
+        { label: 'Total Vehicles', val: cars.length, icon: <Car className="text-blue-600" />, bg: 'bg-blue-50' },
         { label: 'Active Bookings', val: bookings.filter(b => b.status === 'CONFIRMED' || b.status === 'APPROVED').length, icon: <Calendar className="text-green-600" />, bg: 'bg-green-50' },
         { label: 'Pending Requests', val: bookings.filter(b => b.status === 'PENDING').length, icon: <Clock className="text-orange-600" />, bg: 'bg-orange-50' },
         { label: 'Total Earnings', val: `$${bookings.filter(b => b.status === 'CONFIRMED').reduce((acc, b) => acc + b.totalPrice, 0)}`, icon: <CreditCard className="text-indigo-600" />, bg: 'bg-indigo-50' }
@@ -60,11 +60,11 @@ const OwnerDashboard = () => {
             <div className="container py-12">
                 <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
                     <div>
-                        <h1 className="text-4xl font-black text-gray-900 mb-2">Owner Console</h1>
-                        <p className="text-gray-500 font-medium">Manage your fleet and maximize your earnings.</p>
+                        <h1 className="text-4xl font-black text-gray-900 mb-2">Host Dashboard</h1>
+                        <p className="text-gray-500 font-medium">Manage your vehicles and earnings.</p>
                     </div>
                     <Link to="/cars/add" className="btn btn-primary py-4 px-8 flex items-center gap-2 group">
-                        <Plus size={20} className="group-hover:rotate-90 transition-transform" /> List New Vehicle
+                        <Plus size={20} className="group-hover:rotate-90 transition-transform" /> Add New Vehicle
                     </Link>
                 </div>
 
@@ -90,13 +90,13 @@ const OwnerDashboard = () => {
                             onClick={() => setActiveTab('cars')}
                             className={`flex-1 py-4 text-sm font-black rounded-2xl transition-all ${activeTab === 'cars' ? 'bg-primary text-white shadow-lg' : 'text-gray-500 hover:bg-gray-50'}`}
                         >
-                            Vehicle Fleet ({cars.length})
+                            My Vehicles ({cars.length})
                         </button>
                         <button
                             onClick={() => setActiveTab('bookings')}
                             className={`flex-1 py-4 text-sm font-black rounded-2xl transition-all ${activeTab === 'bookings' ? 'bg-primary text-white shadow-lg' : 'text-gray-500 hover:bg-gray-50'}`}
                         >
-                            Guest Bookings ({bookings.length})
+                            Bookings ({bookings.length})
                         </button>
                     </div>
 

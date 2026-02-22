@@ -59,10 +59,10 @@ const Home = () => {
 
                         <div className="flex flex-col md:flex-row gap-8 items-start md:items-center">
                             <Link to="/cars" className="btn bg-white text-primary px-10 py-5 hover:bg-secondary transition-all shadow-luxe">
-                                Explore Collection
+                                Browse Vehicles
                             </Link>
                             <p className="max-w-xs text-sm text-white/60 font-medium leading-relaxed">
-                                Experience Ethiopia's most curated peer-to-peer car sharing marketplace.
+                                Ethiopia's premier peer-to-peer car sharing marketplace.
                             </p>
                         </div>
                     </div>
@@ -104,7 +104,7 @@ const Home = () => {
                 </div>
             </section>
 
-            {/* The Ethos - REFINED SPACING */}
+            {/* Our Philosophy */}
             <section className="py-32 md:py-56 bg-secondary">
                 <div className="container">
                     <div className="grid lg:grid-cols-2 gap-24 items-center">
@@ -113,15 +113,15 @@ const Home = () => {
                                 <h2 className="text-[11px] font-bold uppercase tracking-[0.4em] text-slate-400">Our Philosophy</h2>
                                 <h3 className="text-5xl md:text-7xl font-light tracking-tight leading-tight">
                                     Luxury is <br />
-                                    <span className="italic font-serif text-slate-400">visual silence.</span>
+                                    <span className="italic font-serif text-slate-400">simplicity.</span>
                                 </h3>
                             </div>
                             <p className="text-lg text-slate-500 font-medium leading-[1.8] max-w-lg">
-                                We believe that true luxury is the absence of noise. Every interaction with Shekla Ride is curated to provide a seamless transition into your journey.
+                                We believe in absolute clarity. Every interaction with Shekla Ride is designed to provide a seamless and professional experience.
                             </p>
                             <div className="pt-6">
                                 <Link to="/about" className="group flex items-center gap-4 text-[11px] font-bold uppercase tracking-[0.3em] text-primary">
-                                    Learn our story
+                                    Our Story
                                     <span className="w-12 h-[1px] bg-primary group-hover:w-20 transition-all duration-500"></span>
                                 </Link>
                             </div>
@@ -140,8 +140,8 @@ const Home = () => {
                             <div className="space-y-8">
                                 <div className="p-10 bg-primary text-secondary rounded-3xl shadow-luxe space-y-4">
                                     <Gem size={28} className="text-white/20" />
-                                    <h4 className="font-bold uppercase tracking-[0.2em] text-[10px]">Elite Tier</h4>
-                                    <p className="text-sm text-slate-300 font-medium leading-relaxed">Access exclusive vehicles on the platform.</p>
+                                    <h4 className="font-bold uppercase tracking-[0.2em] text-[10px]">Premium Tier</h4>
+                                    <p className="text-sm text-slate-300 font-medium leading-relaxed">Access exclusive vehicles on our platform.</p>
                                 </div>
                                 <div className="aspect-[3/4] rounded-3xl overflow-hidden shadow-premium">
                                     <img src="https://images.unsplash.com/photo-1549317336-206569e8475c?auto=format&fit=crop&q=80&w=1000" className="w-full h-full object-cover" alt="" />
@@ -152,16 +152,16 @@ const Home = () => {
                 </div>
             </section>
 
-            {/* Curated Collection */}
+            {/* Featured Collection */}
             <section className="py-32 md:py-56 bg-white rounded-t-[4rem] shadow-luxe relative z-20">
                 <div className="container">
                     <div className="flex flex-col md:flex-row justify-between items-end mb-24 gap-8">
                         <div className="space-y-4">
-                            <h2 className="text-[11px] font-bold uppercase tracking-[0.4em] text-slate-300">The Catalog</h2>
-                            <h3 className="text-5xl md:text-6xl font-light tracking-tight italic font-serif">Curated Fleet.</h3>
+                            <h2 className="text-[11px] font-bold uppercase tracking-[0.4em] text-slate-300">Browse Catalog</h2>
+                            <h3 className="text-5xl md:text-6xl font-light tracking-tight italic font-serif">Featured Vehicles.</h3>
                         </div>
                         <Link to="/cars" className="btn border border-slate-100 hover:border-primary transition-all rounded-full text-[10px] font-bold uppercase tracking-widest shadow-sm">
-                            View All Vehicles
+                            View All Cars
                         </Link>
                     </div>
 
@@ -238,35 +238,35 @@ const Home = () => {
                 </div>
             </section>
 
-            {/* Monetize Your Asset */}
+            {/* Host Section */}
             <section className="py-32 md:py-56 bg-white">
                 <div className="container text-center space-y-16">
                     <div className="max-w-3xl mx-auto space-y-8">
-                        <h2 className="text-[11px] font-bold uppercase tracking-[0.4em] text-slate-300">The Network</h2>
-                        <h3 className="text-5xl md:text-8xl font-light tracking-tighter leading-[1] italic font-serif">Cultivate your asset.</h3>
+                        <h2 className="text-[11px] font-bold uppercase tracking-[0.4em] text-slate-300">Our Network</h2>
+                        <h3 className="text-5xl md:text-8xl font-light tracking-tighter leading-[1] italic font-serif">Earn with your car.</h3>
                         <p className="text-xl text-slate-400 font-medium leading-relaxed max-w-2xl mx-auto">
-                            Join Ethiopia's most prestigious host network and transform your exceptional vehicles into high-yielding investments.
+                            Join Ethiopia's premier host network and turn your vehicles into additional income.
                         </p>
                     </div>
 
                     <div className="grid md:grid-cols-3 gap-16 text-left pt-12 max-w-5xl mx-auto">
                         <div className="space-y-4">
                             <h4 className="flex items-center gap-3 text-[10px] font-black uppercase tracking-[0.2em] text-primary">
-                                <Star size={18} className="text-gold" /> Unparalleled Returns
+                                <Star size={18} className="text-gold" /> Excellent Returns
                             </h4>
-                            <p className="text-sm text-slate-500 font-medium leading-[1.8]">Command prestige rates for your exceptional fleet.</p>
+                            <p className="text-sm text-slate-500 font-medium leading-[1.8]">Earn professional rates for your vehicles.</p>
                         </div>
                         <div className="space-y-4">
                             <h4 className="flex items-center gap-3 text-[10px] font-black uppercase tracking-[0.2em] text-primary">
-                                <ShieldCheck size={18} className="text-gold" /> Absolute Discretion
+                                <ShieldCheck size={18} className="text-gold" /> Full Control
                             </h4>
-                            <p className="text-sm text-slate-500 font-medium leading-[1.8]">Maintain total control over your pricing and availability.</p>
+                            <p className="text-sm text-slate-500 font-medium leading-[1.8]">Manage your pricing and availability anytime.</p>
                         </div>
                         <div className="space-y-4">
                             <h4 className="flex items-center gap-3 text-[10px] font-black uppercase tracking-[0.2em] text-primary">
-                                <Compass size={18} className="text-gold" /> Dedicated Concierge
+                                <Compass size={18} className="text-gold" /> Dedicated Support
                             </h4>
-                            <p className="text-sm text-slate-500 font-medium leading-[1.8]">Our private support team handles the nuances for you.</p>
+                            <p className="text-sm text-slate-500 font-medium leading-[1.8]">Our support team is always here to help.</p>
                         </div>
                     </div>
 
@@ -278,17 +278,6 @@ const Home = () => {
                 </div>
             </section>
 
-            {/* Trust Section */}
-            <section className="py-32 border-t border-slate-100 italic bg-secondary/30">
-                <div className="container">
-                    <div className="flex flex-wrap justify-center gap-12 md:gap-24 items-center opacity-20 grayscale">
-                        <div className="text-2xl font-serif italic text-primary tracking-widest">LuxeStay</div>
-                        <div className="text-3xl font-serif font-black tracking-tighter text-primary uppercase">ELEVATE</div>
-                        <div className="text-2xl font-serif italic font-bold text-primary tracking-[0.5em]">NOIR</div>
-                        <div className="text-2xl font-serif font-medium text-primary tracking-[0.4em] uppercase">Vantage</div>
-                    </div>
-                </div>
-            </section>
         </div>
     );
 };

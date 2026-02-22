@@ -41,7 +41,7 @@ const Navbar = () => {
                 {/* Desktop Nav */}
                 <div className="hidden md:flex items-center gap-12">
                     <Link to="/cars" className={`text-[10px] font-bold uppercase tracking-[0.2em] transition-all duration-700 hover:opacity-100 no-underline ${isScrolled ? 'text-primary' : 'text-white/80 hover:text-white'}`}>
-                        The Collection
+                        Browse Vehicles
                     </Link>
 
                     {authenticated ? (
@@ -51,14 +51,14 @@ const Navbar = () => {
                                 className={`text-[10px] font-bold uppercase tracking-[0.2em] flex items-center gap-2 no-underline ${isScrolled ? 'text-primary' : 'text-white'}`}
                             >
                                 <User size={16} />
-                                Registry
+                                Dashboard
                             </Link>
                             <button
                                 onClick={handleLogout}
                                 className={`text-[10px] font-bold uppercase tracking-[0.2em] flex items-center gap-2 cursor-pointer transition-colors ${isScrolled ? 'text-primary/60 hover:text-primary' : 'text-white/60 hover:text-white'}`}
                             >
                                 <LogOut size={16} />
-                                Exit
+                                Logout
                             </button>
                         </div>
                     ) : (
@@ -84,16 +84,16 @@ const Navbar = () => {
 
             {/* Mobile Menu Overlay */}
             <div className={`fixed inset-0 bg-primary/95 backdrop-blur-2xl z-[90] transition-all duration-700 md:hidden flex flex-col items-center justify-center space-y-12 ${isMobileMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}>
-                <Link to="/cars" onClick={() => setIsMobileMenuOpen(false)} className="text-3xl font-light text-white italic font-serif">The Collection</Link>
+                <Link to="/cars" onClick={() => setIsMobileMenuOpen(false)} className="text-3xl font-light text-white italic font-serif">Browse Vehicles</Link>
                 {authenticated ? (
                     <>
-                        <Link to="/dashboard" onClick={() => setIsMobileMenuOpen(false)} className="text-3xl font-light text-white italic font-serif">Registry</Link>
-                        <button onClick={() => { handleLogout(); setIsMobileMenuOpen(false); }} className="text-xl font-bold uppercase tracking-widest text-slate-400">Exit</button>
+                        <Link to="/dashboard" onClick={() => setIsMobileMenuOpen(false)} className="text-3xl font-light text-white italic font-serif">Dashboard</Link>
+                        <button onClick={() => { handleLogout(); setIsMobileMenuOpen(false); }} className="text-xl font-bold uppercase tracking-widest text-slate-400">Logout</button>
                     </>
                 ) : (
                     <>
                         <Link to="/login" onClick={() => setIsMobileMenuOpen(false)} className="text-3xl font-light text-white italic font-serif">Login</Link>
-                        <Link to="/register" onClick={() => setIsMobileMenuOpen(false)} className="bg-white text-primary px-12 py-6 rounded-full font-black uppercase tracking-widest text-xs">Join Registry</Link>
+                        <Link to="/register" onClick={() => setIsMobileMenuOpen(false)} className="bg-white text-primary px-12 py-6 rounded-full font-black uppercase tracking-widest text-xs">Join Now</Link>
                     </>
                 )}
             </div>

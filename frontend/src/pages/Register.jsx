@@ -103,14 +103,14 @@ const Register = () => {
                                 </div>
                             </div>
                             <div className="space-y-3">
-                                <label className="text-[10px] font-black tracking-[0.3em] text-slate-400 uppercase ml-2">Secure Link (Email)</label>
+                                <label className="text-[10px] font-black tracking-[0.3em] text-slate-400 uppercase ml-2">Email Address</label>
                                 <div className="relative group">
                                     <Mail className="absolute left-6 top-1/2 -translate-y-1/2 text-slate-300 group-focus-within:text-primary transition-colors" size={18} />
                                     <input
                                         name="email"
                                         type="email"
                                         className="w-full bg-white border border-slate-50 focus:border-primary/20 rounded-2xl py-5 pl-16 pr-8 outline-none transition-all font-medium text-sm"
-                                        placeholder="user@exclusive.com"
+                                        placeholder="user@example.com"
                                         required
                                         value={formData.email}
                                         onChange={handleChange}
@@ -121,7 +121,7 @@ const Register = () => {
 
                         <div className="grid md:grid-cols-2 gap-8">
                             <div className="space-y-3">
-                                <label className="text-[10px] font-black tracking-[0.3em] text-slate-400 uppercase ml-2">Communication (Phone)</label>
+                                <label className="text-[10px] font-black tracking-[0.3em] text-slate-400 uppercase ml-2">Phone Number</label>
                                 <div className="relative group">
                                     <Phone className="absolute left-6 top-1/2 -translate-y-1/2 text-slate-300 group-focus-within:text-primary transition-colors" size={18} />
                                     <input
@@ -135,7 +135,7 @@ const Register = () => {
                                 </div>
                             </div>
                             <div className="space-y-3">
-                                <label className="text-[10px] font-black tracking-[0.3em] text-slate-400 uppercase ml-2">Registry Key (Password)</label>
+                                <label className="text-[10px] font-black tracking-[0.3em] text-slate-400 uppercase ml-2">Password</label>
                                 <div className="relative group">
                                     <Lock className="absolute left-6 top-1/2 -translate-y-1/2 text-slate-300 group-focus-within:text-primary transition-colors" size={18} />
                                     <input
@@ -167,7 +167,7 @@ const Register = () => {
                                     onClick={() => setFormData({ ...formData, role: 'OWNER' })}
                                     className={`py-6 rounded-2xl font-bold uppercase tracking-[0.2em] text-[10px] transition-all border ${formData.role === 'OWNER' ? 'border-primary bg-primary text-secondary shadow-luxe' : 'border-slate-100 bg-white text-slate-300 hover:border-slate-200'}`}
                                 >
-                                    Vehicle Custodian / Host
+                                    Car Owner / Host
                                 </button>
                             </div>
                         </div>
@@ -177,7 +177,7 @@ const Register = () => {
                             {/* Identity - All Roles */}
                             <div className="space-y-8">
                                 <div className="space-y-2 text-center">
-                                    <h4 className="text-[10px] font-black uppercase tracking-[0.4em] text-primary">Identity Verification</h4>
+                                    <h4 className="text-[10px] font-black uppercase tracking-[0.4em] text-primary">Driver Verification</h4>
                                     <p className="text-xs text-slate-400 font-medium">To maintain the integrity of our network, we require a scan of your Driver's Credentials.</p>
                                 </div>
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -228,7 +228,7 @@ const Register = () => {
                         >
                             {isLoading ? 'Processing Application...' : (
                                 <>
-                                    <span>Submit membership request</span>
+                                    <span>Create Account</span>
                                     <ArrowRight size={16} className="transition-transform group-hover:translate-x-2" />
                                 </>
                             )}
