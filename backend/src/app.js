@@ -8,13 +8,26 @@ const userRoutes = require('./routes/user.routes');
 const carRoutes = require('./routes/car.routes');
 const bookingRoutes = require('./routes/booking.routes');
 const adminRoutes = require('./routes/admin.routes');
+const agencyRoutes = require('./routes/agency.routes');
+
+const path = require('path');
 
 const app = express();
 
+// Serve uploads
+app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
+
 // Middleware
-app.use(helmet());
-app.use(cors());
-app.use(express.json());
+app.use(helmet({
+    crossOriginResourcePolicy: false,
+}));
+app.use(cors({
+    origin: '*', // Allow all for dev
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization']
+}));
+app.use(express.json({ limit: '10mb' }));
+app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 app.use(morgan('dev'));
 
 // Routes
@@ -24,6 +37,7 @@ app.use('/api/users', userRoutes);
 app.use('/api/cars', carRoutes);
 app.use('/api/bookings', bookingRoutes);
 app.use('/api/admin', adminRoutes);
+app.use('/api/agency', agencyRoutes);
 
 // Error Handling Middleware
 app.use((err, req, res, next) => {

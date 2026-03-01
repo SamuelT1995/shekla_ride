@@ -44,7 +44,26 @@ export const AuthProvider = ({ children }) => {
     };
 
     const register = async (userData) => {
-        const res = await api.post('/auth/register', userData);
+        const formData = new FormData();
+
+        Object.keys(userData).forEach(key => {
+            if (userData[key] !== null && userData[key] !== undefined) {
+                if (Array.isArray(userData[key])) {
+                    userData[key].forEach(file => {
+                        formData.append(key, file);
+                    });
+                } else {
+                    formData.append(key, userData[key]);
+                }
+            }
+        });
+
+        const res = await api.post('/auth/register', formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        });
+
         localStorage.setItem('token', res.data.token);
         setToken(res.data.token);
         setUser(res.data.user);

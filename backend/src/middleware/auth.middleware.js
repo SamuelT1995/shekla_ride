@@ -55,4 +55,21 @@ const ownerOnly = (req, res, next) => {
     }
 };
 
-module.exports = { protect, adminOnly, ownerOnly };
+const agencyOnly = (req, res, next) => {
+    const agencyRoles = ['AGENCY_OWNER', 'AGENCY_MANAGER', 'AGENCY_STAFF', 'ADMIN'];
+    if (req.user && agencyRoles.includes(req.user.role)) {
+        next();
+    } else {
+        res.status(403).json({ message: 'Not authorized for agency operations' });
+    }
+};
+
+const agencyOwnerOnly = (req, res, next) => {
+    if (req.user && (req.user.role === 'AGENCY_OWNER' || req.user.role === 'ADMIN')) {
+        next();
+    } else {
+        res.status(403).json({ message: 'Only agency owners can perform this action' });
+    }
+};
+
+module.exports = { protect, adminOnly, ownerOnly, agencyOnly, agencyOwnerOnly };

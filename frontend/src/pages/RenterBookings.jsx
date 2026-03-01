@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import { Calendar, MapPin, Clock } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { Calendar, MapPin, Clock, User, CreditCard, CheckCircle } from 'lucide-react';
 
 const RenterBookings = () => {
     const [bookings, setBookings] = useState([]);

@@ -5,7 +5,15 @@ const prisma = require('../config/db');
 // Register a new user
 exports.register = async (req, res) => {
     try {
-        const { fullName, email, phoneNumber, password, role } = req.body;
+        let { fullName, email, phoneNumber, password, role, agencyName, registrationNum } = req.body;
+
+        email = email.toLowerCase();
+
+        // Process files if any
+        const files = req.files || {};
+        const licenseFront = files.licenseFront ? `/uploads/${files.licenseFront[0].filename}` : null;
+        const licenseBack = files.licenseBack ? `/uploads/${files.licenseBack[0].filename}` : null;
+        const businessLicense = files.businessLicense ? `/uploads/${files.businessLicense[0].filename}` : null;
 
         // Check if user already exists
         const userExists = await prisma.user.findFirst({
@@ -22,50 +30,74 @@ exports.register = async (req, res) => {
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(password, salt);
 
-        // Create user
-        const user = await prisma.user.create({
-            data: {
-                fullName,
-                email,
-                phoneNumber,
-                password: hashedPassword,
-                role: role || 'USER'
+        // Transaction to ensure atomicity for agency registration
+        const result = await prisma.$transaction(async (tx) => {
+            const user = await tx.user.create({
+                data: {
+                    fullName,
+                    email,
+                    phoneNumber,
+                    password: hashedPassword,
+                    role: role || 'USER',
+                    licenseFront,
+                    licenseBack,
+                }
+            });
+
+            if (role === 'AGENCY_OWNER') {
+                if (!agencyName || !registrationNum || !businessLicense) {
+                    throw new Error('Agency details (name, registration number, business license) are required');
+                }
+
+                await tx.agency.create({
+                    data: {
+                        name: agencyName,
+                        registrationNum: registrationNum,
+                        businessLicense: businessLicense,
+                        ownerId: user.id,
+                        status: 'PENDING'
+                    }
+                });
             }
+
+            return user;
         });
 
         // Generate JWT
         const token = jwt.sign(
-            { id: user.id, role: user.role },
+            { id: result.id, role: result.role },
             process.env.JWT_SECRET,
             { expiresIn: '7d' }
         );
 
         res.status(201).json({
-            message: 'User registered successfully',
+            message: role === 'AGENCY_OWNER' ? 'Agency registered successfully. Pending approval.' : 'User registered successfully',
             token,
             user: {
-                id: user.id,
-                fullName: user.fullName,
-                email: user.email,
-                role: user.role,
-                status: user.status
+                id: result.id,
+                fullName: result.fullName,
+                email: result.email,
+                role: result.role,
+                status: result.status
             }
         });
     } catch (error) {
         console.error('Registration error:', error);
-        res.status(500).json({ message: 'Server error during registration' });
+        res.status(error.message.includes('Agency details') ? 400 : 500).json({
+            message: error.message || 'Server error during registration'
+        });
     }
 };
 
 // Login user
 exports.login = async (req, res) => {
     try {
-        const { loginIdentifier, password } = req.body; // email or phone
+        const { loginIdentifier, password } = req.body;
+        const normalizedIdentifier = loginIdentifier.toLowerCase();
 
-        // Find user
         const user = await prisma.user.findFirst({
             where: {
-                OR: [{ email: loginIdentifier }, { phoneNumber: loginIdentifier }]
+                OR: [{ email: normalizedIdentifier }, { phoneNumber: loginIdentifier }]
             }
         });
 
@@ -73,13 +105,11 @@ exports.login = async (req, res) => {
             return res.status(400).json({ message: 'Invalid credentials' });
         }
 
-        // Check password
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) {
             return res.status(400).json({ message: 'Invalid credentials' });
         }
 
-        // Generate JWT
         const token = jwt.sign(
             { id: user.id, role: user.role },
             process.env.JWT_SECRET,

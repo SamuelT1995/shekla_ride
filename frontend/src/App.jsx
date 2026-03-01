@@ -14,6 +14,7 @@ import RenterBookings from './pages/RenterBookings';
 import OwnerDashboard from './pages/OwnerDashboard';
 import CarForm from './pages/CarForm';
 import AdminDashboard from './pages/AdminDashboard';
+import AgencyDashboard from './pages/AgencyDashboard';
 import './index.css';
 
 function App() {
@@ -35,6 +36,10 @@ function App() {
                     <Route element={<MainLayout><ProtectedRoute allowedRoles={['OWNER', 'ADMIN']} /></MainLayout>}>
                         <Route path="/owner/dashboard" element={<OwnerDashboard />} />
                         <Route path="/cars/add" element={<CarForm />} />
+                    </Route>
+
+                    <Route element={<MainLayout><ProtectedRoute allowedRoles={['AGENCY_OWNER', 'AGENCY_MANAGER', 'AGENCY_STAFF', 'ADMIN']} /></MainLayout>}>
+                        <Route path="/agency/dashboard" element={<AgencyDashboard />} />
                     </Route>
 
                     <Route element={<MainLayout><ProtectedRoute allowedRoles={['ADMIN']} /></MainLayout>}>

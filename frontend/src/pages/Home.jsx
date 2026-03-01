@@ -5,9 +5,11 @@ import {
     Star, ChevronRight, Compass, ShieldCheck,
     Smartphone, Car, Gem
 } from 'lucide-react';
+import { useAuth } from '../context/AuthContext';
 import axios from 'axios';
 
 const Home = () => {
+    const { authenticated, user } = useAuth();
     const [search, setSearch] = useState({ location: '', query: '' });
     const [featuredCars, setFeaturedCars] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -36,13 +38,15 @@ const Home = () => {
         <div className="min-h-screen bg-secondary selection:bg-primary selection:text-white">
             {/* Cinematic Hero Section */}
             <section className="relative min-h-[90vh] flex flex-col justify-center overflow-hidden">
-                <div className="absolute inset-0 z-0 bg-primary">
-                    <img
-                        src="https://images.unsplash.com/photo-1542362567-b0523030386a?auto=format&fit=crop&q=80&w=2500"
-                        alt=""
-                        className="w-full h-full object-cover opacity-60"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-b from-primary/60 via-primary/20 to-secondary"></div>
+                <div className="absolute inset-0 z-0 bg-[#020617]">
+                    <div
+                        className="absolute inset-0 bg-cover bg-center transition-all duration-[10000ms] hover:scale-110 brightness-[0.5] contrast-[1.2] grayscale-[0.2]"
+                        style={{
+                            backgroundImage: `linear-gradient(to right, rgba(2, 6, 23, 0.95) 0%, rgba(2, 6, 23, 0.4) 40%, rgba(2, 6, 23, 0.1) 50%, rgba(2, 6, 23, 0.4) 60%, rgba(2, 6, 23, 0.95) 100%), linear-gradient(to bottom, rgba(2, 6, 23, 0.8) 0%, transparent 40%, transparent 60%, rgba(2, 6, 23, 0.9) 100%), url('/hero_car_v5.jpg')`
+                        }}
+                    ></div>
+                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(30,58,138,0.05),transparent_70%)]"></div>
+                    <div className="absolute inset-0 bg-gradient-to-t from-secondary via-transparent to-secondary/50"></div>
                 </div>
 
                 <div className="container relative z-10 pt-32 pb-12">
@@ -52,9 +56,9 @@ const Home = () => {
                             <span className="text-[10px] font-bold uppercase tracking-[0.2em]">The Spring Collection is here</span>
                         </div>
 
-                        <h1 className="text-6xl md:text-8xl lg:text-9xl font-light leading-[1.1] tracking-tighter text-white">
+                        <h1 className="text-6xl md:text-8xl lg:text-[10rem] font-light leading-[0.9] tracking-tighter text-white">
                             The art of <br />
-                            <span className="italic font-serif">moving well.</span>
+                            <span className="italic font-serif text-slate-400">moving well.</span>
                         </h1>
 
                         <div className="flex flex-col md:flex-row gap-8 items-start md:items-center">
@@ -129,7 +133,7 @@ const Home = () => {
                         <div className="grid grid-cols-2 gap-8">
                             <div className="space-y-8 mt-12">
                                 <div className="aspect-[3/4] rounded-3xl overflow-hidden shadow-premium">
-                                    <img src="https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&q=80&w=1000" className="w-full h-full object-cover" alt="" />
+                                    <img src="https://images.unsplash.com/photo-1580273916550-e323be2ae537?auto=format&fit=crop&q=80&w=1000" className="w-full h-full object-cover" alt="Luxury Car Detail" />
                                 </div>
                                 <div className="p-10 bg-white rounded-3xl shadow-premium space-y-4">
                                     <ShieldCheck className="text-primary" size={28} />
@@ -271,9 +275,22 @@ const Home = () => {
                     </div>
 
                     <div className="pt-16 flex justify-center">
-                        <Link to="/register" className="btn bg-primary text-white px-16 py-6 rounded-full shadow-luxe hover:scale-105 transition-all text-sm font-bold tracking-[0.2em]">
-                            Apply to Host
-                        </Link>
+                        {authenticated ? (
+                            <Link
+                                to={
+                                    user?.role === 'OWNER' ? '/owner/dashboard' :
+                                        user?.role === 'AGENCY_OWNER' || user?.role === 'AGENCY_MANAGER' ? '/agency/dashboard' :
+                                            '/dashboard'
+                                }
+                                className="btn bg-primary text-white px-16 py-6 rounded-full shadow-luxe hover:scale-105 transition-all text-sm font-bold tracking-[0.2em]"
+                            >
+                                Go to Dashboard
+                            </Link>
+                        ) : (
+                            <Link to="/register" className="btn bg-primary text-white px-16 py-6 rounded-full shadow-luxe hover:scale-105 transition-all text-sm font-bold tracking-[0.2em]">
+                                Apply to Host
+                            </Link>
+                        )}
                     </div>
                 </div>
             </section>
